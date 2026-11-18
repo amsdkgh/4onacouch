@@ -1,0 +1,183 @@
+:root {
+  color-scheme: light dark;
+  font-family: Inter, Segoe UI, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #101820;
+  color: #f2f5ff;
+}
+
+.app {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 12px;
+  display: grid;
+  gap: 12px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #3d4a5d;
+}
+
+.card {
+  background: #1b2533;
+  border: 1px solid #34455d;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+button {
+  background: #2f3e52;
+  color: #fff;
+  border: 1px solid #476182;
+  border-radius: 8px;
+  padding: 9px 12px;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  background: #121a25;
+  color: #f5f7ff;
+  border: 1px solid #42516a;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+#playersList,
+#nameList {
+  display: grid;
+  gap: 8px;
+}
+
+.player-row,
+.name-row {
+  display: grid;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid #3a4b63;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.player-row {
+  grid-template-columns: auto 1fr auto auto;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.checkbox-setting {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-setting input[type="checkbox"] {
+  width: auto;
+}
+
+.host-badge {
+  display: inline-block;
+  background: #275536;
+  border-radius: 999px;
+  padding: 4px 10px;
+  margin-bottom: 8px;
+}
+
+.meta {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.couch-counts {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.red {
+  color: #ff9e9e;
+}
+
+.blue {
+  color: #9dc4ff;
+}
+
+.assigned-name {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.assigned-name .label {
+  font-size: 0.9rem;
+  color: #d2ddf5;
+}
+
+.secret {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.name-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.name-btn.cooldown {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+.name-row.cooldown {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.pill-small {
+  display: inline-block;
+  min-width: 24px;
+  text-align: center;
+  margin-left: 6px;
+  border-radius: 999px;
+  background: #455572;
+  padding: 2px 7px;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 640px) {
+  .player-row {
+    grid-template-columns: auto 1fr;
+  }
+}

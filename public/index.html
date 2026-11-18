@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Couch Game</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="top">
+        <h1>Couch Game</h1>
+        <div id="connectionStatus" class="pill">Connecting...</div>
+      </header>
+
+      <section id="alerts"></section>
+
+      <section id="joinView" class="card">
+        <h2>Join</h2>
+        <label for="nicknameInput">Nickname</label>
+        <input id="nicknameInput" autocomplete="name" />
+        <button id="joinBtn">Join game</button>
+      </section>
+
+      <section id="lobbyView" class="card hidden">
+        <h2>Lobby</h2>
+        <div id="hostBadge" class="host-badge hidden">You are host</div>
+        <div class="settings">
+          <label class="checkbox-setting">
+            <input id="blindModeCheckbox" type="checkbox" />
+            Blind mode (hide team colors in name list)
+          </label>
+          <button id="saveSettingsBtn">Save settings</button>
+        </div>
+        <h3>Players</h3>
+        <div id="playersList"></div>
+        <div class="actions">
+          <button id="moveUpBtn">Move selected up</button>
+          <button id="moveDownBtn">Move selected down</button>
+        </div>
+        <button id="startGameBtn">Start game</button>
+      </section>
+
+      <section id="gameView" class="card hidden">
+        <h2 id="phaseLabel">Game</h2>
+        <div class="meta">
+          <div id="callerText"></div>
+          <div id="pendingText"></div>
+          <div class="couch-counts">
+            <span class="red">Red couch: <strong id="redCouchCount">0</strong>/4</span>
+            <span class="blue">Blue couch: <strong id="blueCouchCount">0</strong>/4</span>
+          </div>
+        </div>
+
+        <div id="assignedNameBlock" class="assigned-name hidden">
+          <div class="label">Your assigned secret name</div>
+          <div id="assignedNameValue" class="secret">••••••••</div>
+          <button id="holdRevealBtn">Press and hold to reveal</button>
+        </div>
+
+        <div id="callControls" class="hidden">
+          <h3>Call a name</h3>
+          <div id="nameButtons" class="name-grid"></div>
+        </div>
+
+        <div id="confirmMoveBlock" class="hidden">
+          <h3>You were called</h3>
+          <p>Move to the empty seat, then confirm.</p>
+          <button id="confirmMoveBtn">I moved to the empty seat</button>
+        </div>
+
+        <h3>Callable names</h3>
+        <div id="nameList" class="name-list"></div>
+      </section>
+
+      <section id="finishedView" class="card hidden">
+        <h2>Game Over</h2>
+        <p id="winnerText"></p>
+        <button id="endGameBtn">Reset to lobby</button>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+  </html>
