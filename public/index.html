@@ -30,6 +30,10 @@
             <input id="blindModeCheckbox" type="checkbox" />
             Blind mode (hide team colors in name list)
           </label>
+          <label class="checkbox-setting">
+            <input id="blindCouchModeCheckbox" type="checkbox" />
+            Blind couch mode (hide couch team counts)
+          </label>
           <button id="saveSettingsBtn">Save settings</button>
         </div>
         <h3>Players</h3>
@@ -46,7 +50,7 @@
         <div class="meta">
           <div id="callerText"></div>
           <div id="pendingText"></div>
-          <div class="couch-counts">
+          <div id="couchCounts" class="couch-counts">
             <span class="red">Red couch: <strong id="redCouchCount">0</strong>/4</span>
             <span class="blue">Blue couch: <strong id="blueCouchCount">0</strong>/4</span>
           </div>

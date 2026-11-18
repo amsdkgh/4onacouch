@@ -7,6 +7,7 @@ Local LAN web version of Four on a Couch with:
 - Circular seat model with one empty seat
 - Random 4-seat couch target block
 - Global nickname cooldowns (3 turns)
+- Blind couch mode setting (default on) to hide couch team counts
 - Host helper QR page on `localhost:3001`
 
 ## Run locally

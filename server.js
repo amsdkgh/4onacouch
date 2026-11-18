@@ -23,7 +23,8 @@ const TEAM = {
 const NAME_COOLDOWN_TURNS = 3;
 
 const DEFAULT_SETTINGS = {
-  blindMode: false
+  blindMode: false,
+  blindCouchMode: true
 };
 
 const state = createInitialState();
@@ -133,7 +134,12 @@ function handleAction(body) {
     if (state.phase !== PHASE.LOBBY) {
       return fail("INVALID_PHASE", "Settings can only be changed in lobby.");
     }
-    state.settings.blindMode = Boolean(body.blindMode);
+    if (Object.prototype.hasOwnProperty.call(body, "blindMode")) {
+      state.settings.blindMode = Boolean(body.blindMode);
+    }
+    if (Object.prototype.hasOwnProperty.call(body, "blindCouchMode")) {
+      state.settings.blindCouchMode = Boolean(body.blindCouchMode);
+    }
     return ok();
   }
 
@@ -398,7 +404,10 @@ function buildClientState(viewerPlayerId) {
     : ordered.map((p) => p.nicknameRaw);
   return {
     phase: state.phase,
-    settings: state.settings,
+    settings: {
+      blindMode: Boolean(state.settings.blindMode),
+      blindCouchMode: state.settings.blindCouchMode !== false
+    },
     players: ordered.map((p) => ({
       id: p.id,
       nicknameRaw: p.nicknameRaw,
@@ -658,6 +667,7 @@ function buildHelperState() {
   return {
     phase: state.phase,
     blindMode: state.settings.blindMode,
+    blindCouchMode: state.settings.blindCouchMode !== false,
     currentCallerName: currentCaller ? currentCaller.nicknameRaw : null,
     pendingCalledName: state.pendingMove ? state.pendingMove.calledName : null,
     callableNames: (state.callableNameOrder.length
@@ -711,7 +721,7 @@ function buildHelperHtml(joinUrl) {
         <div>
           <h1 style="margin:0">Couch Game Helper</h1>
           <p id="meta" class="meta">Waiting to start.</p>
-          <div class="scores">
+          <div id="scores" class="scores">
             <div class="score red">Red couch: <span id="redCount">0</span>/4</div>
             <div class="score blue">Blue couch: <span id="blueCount">0</span>/4</div>
           </div>
@@ -740,10 +750,16 @@ function buildHelperHtml(joinUrl) {
           if (!data.ok) return;
           const s = data.state;
           const meta = document.getElementById('meta');
+          const scores = document.getElementById('scores');
           const redCount = document.getElementById('redCount');
           const blueCount = document.getElementById('blueCount');
-          redCount.textContent = String(s.couchCounts?.RED ?? 0);
-          blueCount.textContent = String(s.couchCounts?.BLUE ?? 0);
+          if (s.blindCouchMode) {
+            scores.style.display = 'none';
+          } else {
+            scores.style.display = 'flex';
+            redCount.textContent = String(s.couchCounts?.RED ?? 0);
+            blueCount.textContent = String(s.couchCounts?.BLUE ?? 0);
+          }
           if (s.phase === 'FINISHED' && s.winnerTeam) {
             meta.textContent = s.winnerTeam + ' wins!';
           } else if (s.phase === 'ACTIVE') {

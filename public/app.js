@@ -28,6 +28,7 @@ const els = {
   lobbyView: byId("lobbyView"),
   hostBadge: byId("hostBadge"),
   blindModeCheckbox: byId("blindModeCheckbox"),
+  blindCouchModeCheckbox: byId("blindCouchModeCheckbox"),
   saveSettingsBtn: byId("saveSettingsBtn"),
   playersList: byId("playersList"),
   moveUpBtn: byId("moveUpBtn"),
@@ -37,6 +38,7 @@ const els = {
   phaseLabel: byId("phaseLabel"),
   callerText: byId("callerText"),
   pendingText: byId("pendingText"),
+  couchCounts: byId("couchCounts"),
   redCouchCount: byId("redCouchCount"),
   blueCouchCount: byId("blueCouchCount"),
   assignedNameBlock: byId("assignedNameBlock"),
@@ -79,7 +81,8 @@ els.joinBtn.addEventListener("click", async () => {
 els.saveSettingsBtn.addEventListener("click", () =>
   sendAction({
     type: "UPDATE_SETTINGS",
-    blindMode: Boolean(els.blindModeCheckbox.checked)
+    blindMode: Boolean(els.blindModeCheckbox.checked),
+    blindCouchMode: Boolean(els.blindCouchModeCheckbox.checked)
   })
 );
 els.moveUpBtn.addEventListener("click", () => reorderSelected(-1));
@@ -224,6 +227,7 @@ function render() {
 
 function renderLobby(me, isHost) {
   els.blindModeCheckbox.checked = Boolean(gameState.settings.blindMode);
+  els.blindCouchModeCheckbox.checked = gameState.settings.blindCouchMode !== false;
   els.playersList.innerHTML = "";
   for (const player of gameState.players) {
     const row = document.createElement("div");
@@ -275,6 +279,8 @@ function renderGame(me) {
     : "No pending move.";
   els.redCouchCount.textContent = String(gameState.couchCounts?.RED ?? 0);
   els.blueCouchCount.textContent = String(gameState.couchCounts?.BLUE ?? 0);
+  const blindCouchMode = gameState.settings.blindCouchMode !== false;
+  toggle(els.couchCounts, !blindCouchMode);
 
   toggle(els.assignedNameBlock, Boolean(gameState.myAssignedName));
   renderAssignedName();
